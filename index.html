@@ -78,24 +78,14 @@
     transition: border-color 0.2s;
   }
   .team-input input:focus { border-color: #f5c518; }
-
-  .btn {
-    display: block;
-    margin: 0 auto 44px;
-    padding: 12px 42px;
-    background: #f5c518;
-    color: #0f1923;
-    font-weight: 700;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background 0.2s, transform 0.1s;
+  .team-input input:disabled {
+    color: #f5c518;
+    border-color: #3a5a2a;
+    background: #131e13;
+    cursor: not-allowed;
+    opacity: 1;
   }
-  .btn:hover  { background: #ffd740; }
-  .btn:active { transform: scale(0.97); }
+
 
   /* ── BRACKET ── */
   #bracketSection { display: none; }
@@ -284,7 +274,6 @@
   </div>
 </div>
 
-<button class="btn" onclick="generateDraw()">⚡ Generate Draw</button>
 
 <div id="bracketSection">
   <div class="bracket-scroll">
@@ -386,24 +375,22 @@
   groupATeams.forEach((name, idx) => {
     const input = document.getElementById(`A${idx + 1}`);
     input.value    = name;
-    input.readOnly = true;
-    input.style.color       = '#f5c518';
-    input.style.borderColor = '#3a5a2a';
-    input.style.background  = '#131e13';
+    input.disabled = true;
   });
 
   // Pre-fill Group B (locked)
   groupBTeams.forEach((name, idx) => {
     const input = document.getElementById(`B${idx + 1}`);
     input.value    = name;
-    input.readOnly = true;
-    input.style.color       = '#f5c518';
-    input.style.borderColor = '#3a5a2a';
-    input.style.background  = '#131e13';
+    input.disabled = true;
   });
 
+  // Auto-generate the draw on load
+  generateDraw();
+
   function getTeam(g, i) {
-    return document.getElementById(`${g}${i}`).value.trim() || `${i}${g}`;
+    const el = document.getElementById(`${g}${i}`);
+    return (el ? el.value.trim() : '') || `${i}${g}`;
   }
 
   function esc(s) {
