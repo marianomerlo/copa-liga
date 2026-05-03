@@ -374,10 +374,15 @@
         </div>`;
     }
   }
+  const groupBTeams = [
+    'Independiente Rivadavia', 'River', 'Argentinos Jrs', 'Central',
+    'Belgrano', 'Gimnasia LP', 'Huracan', 'Barracas'
+  ];
+
   buildInputs('groupA', 'A');
   buildInputs('groupB', 'B');
 
-  // Pre-fill Group A
+  // Pre-fill Group A (locked)
   groupATeams.forEach((name, idx) => {
     const input = document.getElementById(`A${idx + 1}`);
     input.value    = name;
@@ -385,6 +390,12 @@
     input.style.color       = '#f5c518';
     input.style.borderColor = '#3a5a2a';
     input.style.background  = '#131e13';
+  });
+
+  // Pre-fill Group B (editable)
+  groupBTeams.forEach((name, idx) => {
+    const input = document.getElementById(`B${idx + 1}`);
+    input.value = name;
   });
 
   function getTeam(g, i) {
